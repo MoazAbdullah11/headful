@@ -58,13 +58,19 @@ export async function fetchMetadata(url, retries = 2) {
 
   try {
     browser = await puppeteer.launch({
-      headless: false, // 🔥 headful
-      defaultViewport: null,
-      args: [
-        "--start-maximized",
-        "--disable-blink-features=AutomationControlled"
-      ]
-    });
+  headless: "new", // ✅ modern headless (very important)
+  defaultViewport: null,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-blink-features=AutomationControlled",
+    "--disable-dev-shm-usage",
+    "--disable-accelerated-2d-canvas",
+    "--no-first-run",
+    "--no-zygote",
+    "--disable-gpu"
+  ]
+});
 
     const page = await browser.newPage();
 
